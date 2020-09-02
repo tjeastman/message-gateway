@@ -5,7 +5,8 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [ring/ring-core "1.8.1"]
-                 [ring/ring-jetty-adapter "1.8.1"]]
+                 [ring/ring-jetty-adapter "1.8.1"]
+                 [ring/ring-json "0.5.0"]]
   :main ^:skip-aot message-gateway.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
