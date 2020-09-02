@@ -4,7 +4,8 @@
   (:gen-class))
 
 (defn handler [request]
-  (content-type (response "Hello World") "text/html"))
+  (-> (response "Hello World")
+      (content-type "text/html")))
 
 (defn -main []
   (run-jetty handler {:port 3000 :join? false}))
