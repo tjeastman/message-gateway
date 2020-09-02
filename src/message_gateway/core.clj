@@ -1,11 +1,10 @@
 (ns message-gateway.core
-  (:require [ring.adapter.jetty :as ring])
+  (:require [ring.adapter.jetty :refer [run-jetty]]
+            [ring.util.response :refer [content-type response]])
   (:gen-class))
 
 (defn handler [request]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body "Hello World"})
+  (content-type (response "Hello World") "text/html"))
 
 (defn -main []
-  (ring/run-jetty handler {:port 3000 :join? false}))
+  (run-jetty handler {:port 3000 :join? false}))
