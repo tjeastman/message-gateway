@@ -1,10 +1,10 @@
 # message-gateway
 
-FIXME: description
+An MQTT to Prometheus gateway.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Download from https://github.com/tjeastman/message-gateway.
 
 ## Usage
 
