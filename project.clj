@@ -1,5 +1,5 @@
 (defproject message-gateway "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "An MQTT to Prometheus gateway."
   :url "https://github.com/tjeastman/message-gateway"
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
