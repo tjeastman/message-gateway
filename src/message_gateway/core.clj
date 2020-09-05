@@ -1,14 +1,21 @@
 (ns message-gateway.core
-  (:require [ring.adapter.jetty :refer [run-jetty]]
-            [ring.middleware.json :refer [wrap-json-response]]
-            [ring.util.response :refer [content-type response]])
+  (:require [iapetos.core :as prometheus]
+            [iapetos.standalone :as prometheus-standalone])
   (:gen-class))
 
-(defn handler [request]
-  (response {:message "Hello World"}))
+(defonce registry
+  (-> (prometheus/collector-registry)
+      (prometheus/register
+       (prometheus/counter :app/runs-total)
+       (prometheus/histogram :app/duration-seconds)
+       (prometheus/gauge :app/active-users-total))))
 
-(def app
-  (wrap-json-response handler))
+(defonce httpd
+  (prometheus-standalone/metrics-server registry {:port 8080}))
 
 (defn -main []
-  (run-jetty app {:port 3000 :join? false}))
+  (-> registry
+      (prometheus/inc :app/runs-total)
+      (prometheus/observe :app/duration-seconds 0.7)
+      (prometheus/set :app/active-users-total 22))
+  (println "running"))
