@@ -1,6 +1,7 @@
 (ns message-gateway.collectors
   (:require [iapetos.core :as prometheus]
-            [outpace.config :refer [defconfig]]))
+            [outpace.config :refer [defconfig]]
+            [taoensso.timbre :refer [debug]]))
 
 (def collector-fn
   {:counter prometheus/counter
@@ -11,6 +12,7 @@
   (every? #(contains? collector-fn (:type %)) collectors))
 
 (defn collector-init [collector-type collector-key]
+  (debug (format "initializing collector %s of type %s" collector-key collector-type))
   ((collector-type collector-fn) collector-key))
 
 (defconfig

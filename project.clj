@@ -5,7 +5,8 @@
             :url "https://opensource.org/licenses/MIT"}
   :dependencies [[clj-commons/iapetos "0.1.11"]
                  [org.clojure/clojure "1.10.0"]
-                 [com.outpace/config "0.13.5"]]
+                 [com.outpace/config "0.13.5"]
+                 [com.taoensso/timbre "5.1.2"]]
   :aliases {"config" ["run" "-m" "outpace.config.generate"]}
   :main ^:skip-aot message-gateway.core
   :target-path "target/%s"

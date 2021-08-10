@@ -1,7 +1,8 @@
 (ns message-gateway.core
   (:require [iapetos.core :as prometheus]
             [iapetos.standalone :as prometheus-standalone]
-            [message-gateway.collectors :refer [collectors collector-init]])
+            [message-gateway.collectors :refer [collectors collector-init]]
+            [taoensso.timbre :refer [info]])
   (:gen-class))
 
 (defonce registry
@@ -15,4 +16,4 @@
   (prometheus-standalone/metrics-server registry {:port 8080}))
 
 (defn -main []
-  (println "running"))
+  (info "server running"))
