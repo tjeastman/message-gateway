@@ -1,23 +1,8 @@
 (ns message-gateway.core
   (:require [iapetos.core :as prometheus]
             [iapetos.standalone :as prometheus-standalone]
-            [outpace.config :refer [defconfig]])
+            [message-gateway.collectors :refer [collectors collector-init]])
   (:gen-class))
-
-(def collector-fn
-  {:counter prometheus/counter
-   :histogram prometheus/histogram
-   :gauge prometheus/gauge})
-
-(defn collectors-valid? [collectors]
-  (every? #(contains? collector-fn (:type %)) collectors))
-
-(defn collector-init [collector-type collector-key]
-  ((collector-type collector-fn) collector-key))
-
-(defconfig
-  ^{:validate [collectors-valid? "invalid collectors"]}
-  ^:required collectors)
 
 (defonce registry
   (reduce
