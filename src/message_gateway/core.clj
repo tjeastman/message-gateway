@@ -8,9 +8,9 @@
             [taoensso.timbre :refer [info]])
   (:gen-class))
 
-(defconfig ^:required port 8080)
-(defconfig ^:required mh-port 1883)
-(defconfig ^:required mh-hostname "localhost")
+(defconfig ^:required metrics-server-port 8080)
+(defconfig ^:required message-server-port 1883)
+(defconfig ^:required message-server-hostname "localhost")
 
 (defonce registry
   (reduce
@@ -20,10 +20,10 @@
            (collector-init collector-type collector-key)) collectors)))
 
 (defonce httpd
-  (prometheus-standalone/metrics-server registry {:port port}))
+  (prometheus-standalone/metrics-server registry {:port metrics-server-port}))
 
 (defn -main []
   (info "server running")
-  (let [conn-str (format "tcp://%s:%d" mh-hostname mh-port)
+  (let [conn-str (format "tcp://%s:%d" message-server-hostname message-server-port)
         conn (mh/connect conn-str)]
     (info "connected to MQTT server")))
