@@ -9,4 +9,4 @@
   (is (= (parse-double "topic" nil (.getBytes "3.2")) 3.2)))
 
 (deftest parse-bool-test
-  (is (= (parse-bool "topic" nil (.getBytes "true")) true)))
+  (is (parse-bool "topic" nil (.getBytes "true"))))
