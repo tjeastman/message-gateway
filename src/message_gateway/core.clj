@@ -11,6 +11,8 @@
 (defconfig ^:required metrics-server-port 8080)
 (defconfig ^:required message-server-port 1883)
 (defconfig ^:required message-server-hostname "localhost")
+(defconfig message-server-username)
+(defconfig message-server-password)
 
 (defonce registry
   (reduce
@@ -23,5 +25,6 @@
 (defn -main []
   (info "server running")
   (let [conn-str (format "tcp://%s:%d" message-server-hostname message-server-port)
-        conn (mh/connect conn-str)]
+        conn-opts {:username message-server-username :password message-server-password}
+        conn (mh/connect conn-str conn-opts)]
     (info "connected to MQTT server")))
