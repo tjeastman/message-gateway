@@ -1,0 +1,6 @@
+{
+ message-gateway.core/message-server-hostname #config/env "MQTT_HOSTNAME"
+ message-gateway.core/message-server-username #config/env "MQTT_USERNAME"
+ message-gateway.core/message-server-password #config/env "MQTT_PASSWORD"
+ message-gateway.collectors/collectors #config/edn #config/file "collectors.edn"
+}
