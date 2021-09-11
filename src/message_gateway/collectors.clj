@@ -14,7 +14,7 @@
 (defn collectors-valid? [collectors]
   (every? collector-valid? collectors))
 
-(defn collector-init [collector-type collector-key]
+(defn collector-init [{collector-type :type collector-key :key}]
   (debug (format "initializing collector %s of type %s" collector-key collector-type))
   ((collector-type collector-fn) collector-key))
 

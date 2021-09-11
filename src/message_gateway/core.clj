@@ -15,9 +15,7 @@
 (defonce registry
   (reduce
    prometheus/register
-   (prometheus/collector-registry)
-   (map #(let [{collector-type :type collector-key :key} %]
-           (collector-init collector-type collector-key)) collectors)))
+   (prometheus/collector-registry) (map collector-init collectors)))
 
 (defonce httpd
   (prometheus-standalone/metrics-server registry {:port metrics-server-port}))

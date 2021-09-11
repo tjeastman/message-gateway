@@ -4,7 +4,7 @@
             [message-gateway.collectors :refer :all]))
 
 (deftest collector-init-test
-  (is (= (collector-init :counter :total-seconds)
+  (is (= (collector-init {:type :counter :key :total-seconds})
          (prometheus/counter :total-seconds))))
 
 (deftest collector-valid-test
