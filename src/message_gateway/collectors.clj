@@ -8,8 +8,8 @@
    :histogram prometheus/histogram
    :gauge prometheus/gauge})
 
-(defn collector-valid? [collector]
-  (contains? collector-fn (:type collector)))
+(defn collector-valid? [{collector-type :type}]
+  (contains? collector-fn collector-type))
 
 (defn collectors-valid? [collectors]
   (every? collector-valid? collectors))
