@@ -4,7 +4,7 @@
    [iapetos.core :as prometheus]
    [iapetos.standalone :as prometheus-standalone]
    [message-gateway.collectors :refer [collectors collector-init]]
-   [message-gateway.handlers :refer [handle-double handle-long]]
+   [message-gateway.parser :refer [parse-fn]]
    [outpace.config :refer [defconfig]]
    [taoensso.timbre :refer [info]])
   (:gen-class))
@@ -23,6 +23,10 @@
 (defonce httpd
   (prometheus-standalone/metrics-server registry {:port metrics-server-port}))
 
+(defn payload-log [value topic]
+  (info (format "obtained value %s for topic %s from server" value topic))
+  value)
+
 (defn -main []
   (info "server running")
   (let [connection-string (format "tcp://%s:%d" message-server-hostname message-server-port)
@@ -34,9 +38,12 @@
       (mh/subscribe
        connection
        {collector-topic 0}
-       (partial
-        (if (= collector-format :double)
-          handle-double
-          handle-long)
-        registry collector-key)))
+       (let [payload-parse (collector-format parse-fn)
+             payload-publish #(prometheus/set registry collector-key %)]
+         (fn [_ _ payload]
+           (-> payload
+               (String. "UTF-8")
+               (payload-parse)
+               (payload-log collector-topic)
+               (payload-publish))))))
     (info "connected to MQTT server")))
