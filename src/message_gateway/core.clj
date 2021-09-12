@@ -24,12 +24,12 @@
 
 (defn -main []
   (info "server running")
-  (let [conn-str (format "tcp://%s:%d" message-server-hostname message-server-port)
-        conn-opts {:username message-server-username :password message-server-password}
-        conn (mh/connect conn-str conn-opts)]
+  (let [connection-string (format "tcp://%s:%d" message-server-hostname message-server-port)
+        connection-options {:username message-server-username :password message-server-password}
+        connection (mh/connect connection-string connection-options)]
     (doseq [{collector-key :key collector-topic :topic} collectors]
       (mh/subscribe
-       conn
+       connection
        {collector-topic 0}
        (partial handle-double registry collector-key)))
     (info "connected to MQTT server")))
