@@ -1,7 +1,8 @@
 (ns message-gateway.collectors
-  (:require [iapetos.core :as prometheus]
-            [outpace.config :refer [defconfig]]
-            [taoensso.timbre :refer [debug]]))
+  (:require
+   [iapetos.core :as prometheus]
+   [outpace.config :refer [defconfig]]
+   [taoensso.timbre :refer [debug]]))
 
 (def collector-fn
   {:counter prometheus/counter

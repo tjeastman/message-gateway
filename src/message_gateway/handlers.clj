@@ -1,6 +1,7 @@
 (ns message-gateway.handlers
-  (:require [iapetos.core :as prometheus]
-            [taoensso.timbre :refer [debug]]))
+  (:require
+   [iapetos.core :as prometheus]
+   [taoensso.timbre :refer [debug]]))
 
 (defn handle-double [registry collector-key topic _ payload]
   (let [value (Double/parseDouble (String. payload "UTF-8"))]

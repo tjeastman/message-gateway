@@ -1,11 +1,12 @@
 (ns message-gateway.core
-  (:require [clojurewerkz.machine-head.client :as mh]
-            [iapetos.core :as prometheus]
-            [iapetos.standalone :as prometheus-standalone]
-            [message-gateway.collectors :refer [collectors collector-init]]
-            [message-gateway.handlers :refer [handle-double]]
-            [outpace.config :refer [defconfig]]
-            [taoensso.timbre :refer [info]])
+  (:require
+   [clojurewerkz.machine-head.client :as mh]
+   [iapetos.core :as prometheus]
+   [iapetos.standalone :as prometheus-standalone]
+   [message-gateway.collectors :refer [collectors collector-init]]
+   [message-gateway.handlers :refer [handle-double handle-long]]
+   [outpace.config :refer [defconfig]]
+   [taoensso.timbre :refer [info]])
   (:gen-class))
 
 (defconfig ^:required metrics-server-port 8080)
