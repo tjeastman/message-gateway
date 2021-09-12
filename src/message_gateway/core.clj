@@ -28,9 +28,15 @@
   (let [connection-string (format "tcp://%s:%d" message-server-hostname message-server-port)
         connection-options {:username message-server-username :password message-server-password}
         connection (mh/connect connection-string connection-options)]
-    (doseq [{collector-key :key collector-topic :topic} collectors]
+    (doseq [{collector-key :key
+             collector-topic :topic
+             collector-format :format} collectors]
       (mh/subscribe
        connection
        {collector-topic 0}
-       (partial handle-double registry collector-key)))
+       (partial
+        (if (= collector-format :double)
+          handle-double
+          handle-long)
+        registry collector-key)))
     (info "connected to MQTT server")))
