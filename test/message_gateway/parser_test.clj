@@ -1,6 +1,7 @@
 (ns message-gateway.parser-test
-  (:require [clojure.test :refer :all]
-            [message-gateway.parser :refer :all]))
+  (:require
+   [clojure.test :refer :all]
+   [message-gateway.parser :refer :all]))
 
 (deftest parse-double-test
   (is (= ((:double parse-fn) "333.33" ) 333.33)))
