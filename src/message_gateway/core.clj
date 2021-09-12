@@ -27,13 +27,9 @@
   (let [conn-str (format "tcp://%s:%d" message-server-hostname message-server-port)
         conn-opts {:username message-server-username :password message-server-password}
         conn (mh/connect conn-str conn-opts)]
-    (mh/subscribe conn {"/cpu/0/percent" 0} (partial handle-double registry :system/cpu/0/percent))
-    (mh/subscribe conn {"/cpu/1/percent" 0} (partial handle-double registry :system/cpu/1/percent))
-    (mh/subscribe conn {"/cpu/2/percent" 0} (partial handle-double registry :system/cpu/2/percent))
-    (mh/subscribe conn {"/cpu/3/percent" 0} (partial handle-double registry :system/cpu/3/percent))
-
-    (mh/subscribe conn {"/cpu/0/freq" 0} (partial handle-double registry :system/cpu/0/freq))
-    (mh/subscribe conn {"/cpu/1/freq" 0} (partial handle-double registry :system/cpu/1/freq))
-    (mh/subscribe conn {"/cpu/2/freq" 0} (partial handle-double registry :system/cpu/2/freq))
-    (mh/subscribe conn {"/cpu/3/freq" 0} (partial handle-double registry :system/cpu/3/freq))
+    (doseq [{collector-key :key collector-topic :topic} collectors]
+      (mh/subscribe
+       conn
+       {collector-topic 0}
+       (partial handle-double registry collector-key)))
     (info "connected to MQTT server")))
