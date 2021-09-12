@@ -10,7 +10,7 @@
   (is (= ((:long parse-fn) "3333333333" ) 3333333333)))
 
 (deftest parse-int-test
-  (is (= ((:int parse-fn) "333" ) 444)))
+  (is (= ((:int parse-fn) "333" ) 333)))
 
 (deftest parse-bool-test
   (is ((:bool parse-fn) "true" )))
