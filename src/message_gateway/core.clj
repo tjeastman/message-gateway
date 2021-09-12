@@ -3,7 +3,7 @@
             [iapetos.core :as prometheus]
             [iapetos.standalone :as prometheus-standalone]
             [message-gateway.collectors :refer [collectors collector-init]]
-            [message-gateway.handlers :refer [handle-double handle-int]]
+            [message-gateway.handlers :refer [handle-double]]
             [outpace.config :refer [defconfig]]
             [taoensso.timbre :refer [info]])
   (:gen-class))
