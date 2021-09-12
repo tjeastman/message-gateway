@@ -19,8 +19,8 @@
    prometheus/register
    (prometheus/collector-registry) (map collector-init collectors)))
 
-;; (defonce httpd
-;;   (prometheus-standalone/metrics-server registry {:port metrics-server-port}))
+(defonce httpd
+  (prometheus-standalone/metrics-server registry {:port metrics-server-port}))
 
 (defn -main []
   (info "server running")
