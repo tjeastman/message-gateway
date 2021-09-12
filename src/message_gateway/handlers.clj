@@ -12,3 +12,8 @@
   (let [value (Integer/parseInt (String. payload "UTF-8"))]
     (debug (format "obtained value %d for topic %s from server" value topic))
     (prometheus/set registry collector-key value)))
+
+(defn handle-long [registry collector-key topic _ payload]
+  (let [value (Long/parseLong (String. payload "UTF-8"))]
+    (debug (format "obtained value %d for topic %s from server" value topic))
+    (prometheus/set registry collector-key value)))
